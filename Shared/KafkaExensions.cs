@@ -15,7 +15,8 @@ public static class KafkaExtensions
         config.ApplicationId = kafkaOptions["ApplicationId"].ToString();
         config.ClientId = kafkaOptions["ClientId"].ToString();
         config.BootstrapServers = kafkaOptions["BoostrapServer"].ToString();
-        config.AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Earliest;
+        config.AutoOffsetReset = Confluent.Kafka.AutoOffsetReset.Latest;
+        config.EnablePartitionEof = false;
 
         var topology = GetTopology(kafkaOptions["OrderTopic"].ToString(), kafkaOptions["CustomerTopic"].ToString(),
             kafkaOptions["CustomerStoreTopic"].ToString(), kafkaOptions["ProductTopic"].ToString(),

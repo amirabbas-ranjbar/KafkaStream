@@ -30,6 +30,8 @@ public class KafkaOptionsValues
         },
         {
             "OrderEnrichedTopic", "OrderEnriched"
+        },{
+            "GroupId", "test"
         },
     };
 }

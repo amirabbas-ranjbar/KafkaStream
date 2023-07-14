@@ -42,7 +42,7 @@ public class KafkaController : ControllerBase
         _productTopic = kafkaOptions["ProductTopic"].ToString();
     }
 
-    [HttpPost("CreateStream/{orderId}")]
+    [HttpGet("CreateTopics/{orderId}")]
     public async Task<IActionResult> CreateTopics(int orderId)
     {
         var product = Product.Create();
@@ -51,7 +51,6 @@ public class KafkaController : ControllerBase
         await ProduceMessageAsync(_productTopic, product.id, product);
         await ProduceMessageAsync(_customerTopic, customer.id, customer);
         await ProduceMessageAsync(_orderTopic, order.order_id.ToString(), order);
-   await     KafkaExtensions.StartStreamProcessing();
 
         return Ok(new
         {
@@ -59,6 +58,12 @@ public class KafkaController : ControllerBase
             Product = product,
             Order = order
         });
+    }
+    [HttpGet("Stream")]
+    public async Task<IActionResult> Stream()
+    {
+        await KafkaExtensions.StartStreamProcessing();
+        return Ok();
     }
     private async Task ProduceMessageAsync(string topic, string key, object value)
     {
