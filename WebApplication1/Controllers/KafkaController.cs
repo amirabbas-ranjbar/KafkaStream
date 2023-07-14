@@ -3,6 +3,7 @@ using Confluent.Kafka.Admin;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Shared;
 using Streamiz.Kafka.Net;
 using Streamiz.Kafka.Net.SerDes;
 using Streamiz.Kafka.Net.Table;
@@ -13,16 +14,14 @@ namespace WebApplication1.Controllers;
 [Route("api/[controller]")]
 public class KafkaController : ControllerBase
 {
-    private readonly IConfiguration _configuration;
     private readonly ProducerConfig _producerConfig;
     private readonly string _bootstrapServers;
     private readonly string _orderTopic;
     private readonly string _customerTopic;
     private readonly string _productTopic;
-    public KafkaController(IConfiguration configuration)
+    public KafkaController()
     {
-        _configuration = configuration;
-        var kafkaOptions = configuration.GetSection("KafkaOptions").Get<Dictionary<string, string>>();
+        var kafkaOptions = KafkaOptionsValues.KafkaOptions;
         _producerConfig = new ProducerConfig
         {
             BootstrapServers = kafkaOptions["BoostrapServer"].ToString(),
@@ -52,7 +51,7 @@ public class KafkaController : ControllerBase
         await ProduceMessageAsync(_productTopic, product.id, product);
         await ProduceMessageAsync(_customerTopic, customer.id, customer);
         await ProduceMessageAsync(_orderTopic, order.order_id.ToString(), order);
-        KafkaExtensions.StartStreamProcessing(_configuration);
+   await     KafkaExtensions.StartStreamProcessing();
 
         return Ok(new
         {

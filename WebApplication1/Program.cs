@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Shared;
 using WebApplication1;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,4 +26,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+await KafkaExtensions.StartStreamProcessing();
+
 app.Run();
