@@ -7,9 +7,6 @@ public class KafkaConsumerService : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            await KafkaExtensions.StartStreamProcessing();
-        }
+        await KafkaExtensions.StartStreamProcessing();
     }
 }

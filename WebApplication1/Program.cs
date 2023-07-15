@@ -1,4 +1,5 @@
 using Shared;
+using WebApplication1;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,7 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//builder.Services.AddHostedService<KafkaConsumerService>();
+builder.Services.AddHostedService<KafkaConsumerService>();
 
 var app = builder.Build();
 
