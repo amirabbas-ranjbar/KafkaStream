@@ -2,16 +2,19 @@
 
 public class KafkaOptionsValues
 {
+    // public static string DeviceInfo = Guid.NewGuid().ToString().GetHashCode().ToString("x");
+    public static string DeviceInfo = "AmirAbbas";
+
     public static readonly Dictionary<string, string> KafkaOptions = new Dictionary<string, string>()
     {
         {
             "BoostrapServer", "localhost:9094"
         },
         {
-            "ApplicationId", "amirabbas"
+            "ApplicationId", DeviceInfo
         },
         {
-            "ClientId", "amirabbas-client"
+            "ClientId", $"{DeviceInfo}-client"
         },
         {
             "OrderTopic", "Orders"
@@ -30,7 +33,8 @@ public class KafkaOptionsValues
         },
         {
             "OrderEnrichedTopic", "OrderEnriched"
-        },{
+        },
+        {
             "GroupId", "test"
         },
     };

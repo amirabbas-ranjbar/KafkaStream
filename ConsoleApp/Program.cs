@@ -2,4 +2,5 @@
 
 using Shared;
 
+Console.WriteLine(KafkaOptionsValues.DeviceInfo);
 await KafkaExtensions.StartStreamProcessing();
